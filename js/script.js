@@ -1,4 +1,4 @@
-```javascript
+
 /* =========================================
    VARAM SUPERSPECIALITY HOSPITAL
    Clean JavaScript
@@ -541,4 +541,3 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
 });
-```
