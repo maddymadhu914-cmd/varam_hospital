@@ -1,4 +1,3 @@
-
 /* =========================================
    VARAM SUPERSPECIALITY HOSPITAL
    Clean JavaScript
@@ -50,47 +49,52 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 
-    // 4. Scroll reveal animation
-    const revealElements = document.querySelectorAll(
-        ".reveal, .department-card, .doctor-card, " +
-        ".facility-card, .review-card, .why-card"
+   // 4. Scroll reveal animation - FIXED
+
+const revealElements = document.querySelectorAll(
+    ".reveal, .department-card, .doctor-card, " +
+    ".facility-card, .review-card, .why-card"
+);
+
+revealElements.forEach(function (element) {
+    element.classList.add("reveal");
+});
+
+if ("IntersectionObserver" in window) {
+
+    const revealObserver = new IntersectionObserver(
+        function (entries, observer) {
+
+            entries.forEach(function (entry) {
+
+                if (entry.isIntersecting) {
+
+                    // Match the CSS class name
+                    entry.target.classList.add("visible");
+
+                    observer.unobserve(entry.target);
+                }
+
+            });
+
+        },
+        {
+            threshold: 0.08
+        }
     );
 
     revealElements.forEach(function (element) {
-        element.classList.add("reveal");
+        revealObserver.observe(element);
     });
 
-    if ("IntersectionObserver" in window) {
+} else {
 
-        const revealObserver = new IntersectionObserver(
-            function (entries, observer) {
+    // Fallback for older browsers
+    revealElements.forEach(function (element) {
+        element.classList.add("visible");
+    });
 
-                entries.forEach(function (entry) {
-
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add("active");
-                        observer.unobserve(entry.target);
-                    }
-
-                });
-
-            },
-            {
-                threshold: 0.12
-            }
-        );
-
-        revealElements.forEach(function (element) {
-            revealObserver.observe(element);
-        });
-
-    } else {
-
-        revealElements.forEach(function (element) {
-            element.classList.add("active");
-        });
-
-    }
+}
 
 
     // 5. Button ripple effect
